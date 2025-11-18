@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis TIK Kelas X</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e3f2ff, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);} 
+      to {opacity: 1; transform: translateY(0);} 
+    }
+
+    h2 {
+      text-align: center;
+      color: #1a73e8;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: #1a73e8;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .btn:hover { background: #145fc4; }
+
+    .option {
+      padding: 10px;
+      background: #f3f7ff;
+      border-radius: 10px;
+      margin: 8px 0;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .option:hover {
+      border: 1px solid #1a73e8;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="quiz-box">
+    <h2>Kuis TIK Kelas X</h2>
+    <div id="question-box"></div>
+    <button class="btn hidden" id="nextBtn" onclick="nextQuestion()">Soal Berikutnya</button>
+  </div>
+
+  <script>
+    const questions = [
+      {q: "Perangkat yang digunakan untuk memasukkan data ke komputer disebut…", o: ["Output", "Input", "Storage", "Prosesor", "Monitor"], a: 1},
+      {q: "Contoh perangkat output adalah…", o: ["Keyboard", "Mouse", "Monitor", "Scanner", "Flashdisk"], a: 2},
+      {q: "CPU merupakan singkatan dari…", o: ["Central Processing Unit", "Computer Personal Unit", "Control Program Utility", "Central Program User", "Central Power Unit"], a: 0},
+      {q: "Microsoft Word digunakan untuk…", o: ["Mengedit foto", "Mengetik dokumen", "Membuat musik", "Mendesain grafis", "Mengedit video"], a: 1},
+      {q: "Internet adalah…", o: ["Kumpulan komputer yg saling terhubung", "Program komputer", "Hardware", "Bahasa pemrograman", "Jenis virus"], a: 0},
+      {q: "Perangkat keras komputer disebut…", o: ["Hardware", "Software", "Brainware", "Malware", "Freeware"], a: 0},
+      {q: "Contoh perangkat penyimpanan adalah…", o: ["Prosesor", "RAM", "Flashdisk", "Keyboard", "Speaker"], a: 2},
+      {q: "Sistem operasi adalah…", o: ["Aplikasi desain", "Aplikasi pengetikan", "Pengatur seluruh aktivitas komputer", "Perangkat keras utama", "Anti-virus"], a: 2},
+      {q: "Contoh sistem operasi…", o: ["Chrome", "Windows", "Facebook", "Excel", "WinRAR"], a: 1},
+      {q: "Shortcut untuk menyimpan dokumen…", o: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + S", "Ctrl + A"], a: 3},
+      {q: "Aplikasi untuk membuat presentasi adalah…", o: ["Word", "Access", "Excel", "PowerPoint", "Paint"], a: 3},
+      {q: "Virus komputer adalah…", o: ["File musik", "Kerusakan hardware", "Program jahat", "Program game", "Perangkat input"], a: 2},
+      {q: "Fungsi RAM adalah…", o: ["Simpan data permanent", "Menghapus virus", "Bantu kinerja CPU", "Hubungkan internet", "Simpan file cloud"], a: 2},
+      {q: "Google Drive adalah…", o: ["Penyimpanan cloud", "Transfer uang", "Edit audio", "Buat gambar 3D", "Nonton TV"], a: 0},
+      {q: "Keyboard termasuk…", o: ["Output", "Input", "Storage", "Software", "Jaringan"], a: 1},
+      {q: "File Word berekstensi…", o: [".pptx", ".xlsx", ".docx", ".pdfx", ".img"], a: 2},
+      {q: "Fungsi Excel adalah…", o: ["Edit video", "Mengolah angka", "Animasi", "Menggambar", "Bermain game"], a: 1},
+      {q: "Yang termasuk Web Browser…", o: ["Instagram", "WhatsApp", "Chrome", "Canva", "TikTok"], a: 2},
+      {q: "Tindakan berbahaya di internet…", o: ["Unduh file tidak jelas", "Password kuat", "Aktifkan antivirus", "Tutup tab", "Update sistem"], a: 0},
+      {q: "Shortcut menyalin teks…", o: ["Ctrl + Z", "Ctrl + C", "Ctrl + D", "Ctrl + P", "Ctrl + V"], a: 1},
+      {q: "Perangkat jaringan adalah…", o: ["Router", "Printer", "Speaker", "Flashdisk", "Keyboard"], a: 0},
+      {q: "PDF singkatan dari…", o: ["Photo Document File", "Portable Document Format", "Public Data File", "Picture Drive File", "Private Document Folder"], a: 1},
+      {q: "Fungsi Bold…", o: ["Garis bawah", "Miring", "Tebal", "Hapus teks", "Perbesar ukuran"], a: 2},
+      {q: "Kecepatan internet diukur dengan…", o: ["km/jam", "meter", "MB/s", "dpi", "volt"], a: 2},
+      {q: "Komponen penyimpanan permanen…", o: ["RAM", "ROM", "HDD", "VGA", "CPU"], a: 2},
+      {q: "Mouse digunakan untuk…", o: ["Mengetik", "Hapus dokumen", "Gerakkan pointer", "Simpan file", "Tambah memori"], a: 2},
+      {q: "Software pengolah gambar…", o: ["Notepad", "Excel", "Photoshop", "Word", "Browser"], a: 2},
+      {q: "Website dibuka dengan…", o: ["PowerPoint", "Excel", "Finder", "Browser", "Paint"], a: 3},
+      {q: "Wi-Fi adalah jaringan…", o: ["Kabel", "Nirkabel", "HDD", "OS", "Software"], a: 1},
+      {q: "File audio adalah…", o: [".mp3", ".docx", ".pptx", ".xlsx", ".zip"], a: 0}
+    ];
+
+    let index = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const box = document.getElementById('question-box');
+      const q = questions[index];
+
+      box.innerHTML = `
+        <h3>${index + 1}. ${q.q}</h3>
+        ${q.o.map((opt, i) => `<div class='option' onclick='selectAnswer(${i})'>${opt}</div>`).join('')}
+      `;
+    }
+
+    function selectAnswer(selected) {
+      let correct = questions[index].a;
+      if (selected === correct) score += 100 / questions.length;
+      document.getElementById('nextBtn').classList.remove('hidden');
+
+      document.querySelectorAll('.option').forEach((el, i) => {
+        el.style.pointerEvents = 'none';
+        if (i === correct) el.style.background = '#b7ffb7';
+        if (i === selected && selected !== correct) el.style.background = '#ffb7b7';
+      });
+    }
+
+    function nextQuestion() {
+      index++;
+      document.getElementById('nextBtn').classList.add('hidden');
+
+      if (index < questions.length) {
+        loadQuestion();
+      } else {
+        document.getElementById('quiz-box').innerHTML = `
+          <h2>Hasil Akhir</h2>
+          <h1 style='text-align:center; font-size:50px;'>${Math.round(score)}</h1>
+          <p style='text-align:center;'>Skor kamu dari 100</p>
+        `;
+      }
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
